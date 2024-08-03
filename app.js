@@ -4,6 +4,9 @@ const taskForm = document.getElementById("task-form");
 //Nos traemos la lista desordenada ul con el id #task-list
 const taskList = document.getElementById("task-list");
 
+//Usando local storage
+loadTasks()
+
 function createNewListItem(task){
     new_li = document.createElement("li")
     new_li.textContent = `${task}`
@@ -29,6 +32,7 @@ taskForm.addEventListener("submit", (event)=>{
     // console.log(task)
     nuevo_item = createNewListItem(task)
     taskList.append(nuevo_item)
+    storeTaskInLocalStorage(task)
 })
 
 //Delegacion de eventos con tasklist
@@ -55,5 +59,21 @@ function editTask(taskItem){
         taskItem.firstChild.textContent = newTask
     }
 
+}
+
+
+//Utilizando local storage
+function storeTaskInLocalStorage(task){
+    const tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+
+    tasks.push(task);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+function loadTasks(){
+    const tasks = JSON.parse(localStorage.getItem("tasks") || "[]") 
+    tasks.forEach((task) =>{
+        taskList.appendChild(createNewListItem(task))
+    })
 }
 
