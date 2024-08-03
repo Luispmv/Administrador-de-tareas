@@ -95,3 +95,26 @@ function removeFromLocalStorage(taskContent) {
   
     localStorage.setItem("tasks", JSON.stringify(updateTasks));
 }
+
+
+const themeToggle = document.getElementById("toggle-theme-btn")
+
+const currentTheme = localStorage.getItem("theme")
+
+themeToggle.addEventListener("click", ()=>{
+    document.body.classList.toggle("dark-theme")
+
+    let theme
+    if (document.body.classList.contains("dark-theme")) {
+        theme = "dark";
+    } else {
+        theme = "light";
+    }
+
+    localStorage.setItem("theme", theme)
+})
+
+if (currentTheme === "dark"){
+    document.body.classList.add("dark-theme")
+}
+
