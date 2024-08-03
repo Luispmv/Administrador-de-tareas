@@ -30,3 +30,30 @@ taskForm.addEventListener("submit", (event)=>{
     nuevo_item = createNewListItem(task)
     taskList.append(nuevo_item)
 })
+
+//Delegacion de eventos con tasklist
+
+taskList.addEventListener("click", (event)=>{
+    if (event.target.classList.contains("delete-btn")){
+        deleteTask(event.target.parentElement)
+    }else if(event.target.classList.contains("edit-btn")){
+        editTask(event.target.parentElement)
+    }
+})
+
+
+function deleteTask(taskItem){
+    if(confirm("Estas segura(o) de borrar esta tarea?")){
+        taskItem.remove()
+    }
+}
+
+function editTask(taskItem){
+    const newTask = prompt("Edita la tarea", taskItem.firstChild.textContent)
+
+    if(newTask !== null){
+        taskItem.firstChild.textContent = newTask
+    }
+
+}
+
